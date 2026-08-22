@@ -2,6 +2,8 @@ import numpy as np
 from bezier_surface import BezierSurface
 from visualization import plot_bezier_surface
 from ray import Ray
+from equation_system import equation_system
+from jacobian import jacobian
 
 control_points = [
     [[0, 0, 0], [0, 1, 0], [0, 2, 0]],
@@ -25,6 +27,16 @@ ray = Ray([1, 1, 2], [0, 0, -1])
 print(ray.evaluate(0))
 print(ray.evaluate(1))
 print(ray.evaluate(2))
+
+result = equation_system(surface, ray, 0.5, 0.5, 1.75)
+
+print(result)
+
+
+J = jacobian(surface, ray, 0.5, 0.5, 1.75)
+
+print("Jacobian:")
+print(J)
 
 
 plot_bezier_surface(surface, ray)
