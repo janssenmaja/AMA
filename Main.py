@@ -5,6 +5,13 @@ from ray import Ray
 from equation_system import equation_system
 from jacobian import jacobian
 from newton_solver import newton_solver
+from broyden_solver import broyden_solver
+
+control_points = [
+    [[0, 0, 0], [0, 1, 1], [0, 2, 0]],
+    [[1, 0, 1], [1, 1, 3], [1, 2, 1]],
+    [[2, 0, 0], [2, 1, 1], [2, 2, 0]]
+]
 
 #control_points = [
 #    [[0, 0, 0], [0, 1, 0], [0, 2, 0]],
@@ -12,11 +19,11 @@ from newton_solver import newton_solver
 #    [[2, 0, 0], [2, 1, 0], [2, 2, 0]]
 #]
 
-control_points = [
-    [[0, 0, 0], [0, 1, 1], [0, 2, 0]],
-    [[1, 0, 1], [1, 1, 3], [1, 7, 1]],
-    [[2, 0, 0], [2, -4, 1], [2, 2, 0]]
-]
+#control_points = [
+#    [[0, 0, 0], [0, 1, 1], [0, 2, 0]],
+#    [[1, 0, 1], [1, 1, 3], [1, 7, 1]],
+#    [[2, 0, 0], [2, -4, 1], [2, 2, 0]]
+#]
 
 surface = BezierSurface(control_points)
 #erstellt die Bézier-Fläche aus deinen 9 Kontrollpunkten.
@@ -28,7 +35,8 @@ print(point)
 #gibt die berechneten x,y,z-Koordinaten aus
 
 
-ray = Ray([1, 1, 2], [0, 0, -1])
+#ray = Ray([1, 1, 2], [0, 0, -1])
+ray = Ray([0.7, 1.2, 2], [0, 0, -1])
 
 print(ray.evaluate(0))
 print(ray.evaluate(1))
@@ -44,9 +52,9 @@ J = jacobian(surface, ray, 0.5, 0.5, 1.75)
 print("Jacobian:")
 print(J)
 
-initial_guess = [0.4, 0.6, 1.5]
+initial_guess = [0.2, 0.7, 1.0]
 
-solution = newton_solver(
+solution, newton_iterations = newton_solver(
     surface,
     ray,
     initial_guess
@@ -54,5 +62,17 @@ solution = newton_solver(
 
 print("Newton-Lösung:")
 print(solution)
+print("Newton-Iterationen:", newton_iterations)
+
+
+broyden_solution, broyden_iterations = broyden_solver(
+    surface,
+    ray,
+    initial_guess
+)
+
+print("Broyden-Lösung:")
+print(broyden_solution)
+print("Broyden-Iterationen:", broyden_iterations)
 
 plot_bezier_surface(surface, ray)

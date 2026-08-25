@@ -29,4 +29,4 @@ def newton_solver(surface, ray, initial_guess): #initial_guess = Startschätzung
 
         if error < 1e-6: #Wenn der Fehler kleiner als 0.000001 ist, betrachten wir die Lösung als genau genug und beenden die Schleife.
             break
-    return x
+    return x, iteration + 1
