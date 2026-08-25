@@ -5,7 +5,7 @@ from ray import Ray
 
 
 
-def plot_bezier_surface(surface, ray):
+def plot_bezier_surface(surface, ray, solution):
         resolution = 30 #Anzahl von Punkten bestimmmen 30x30 
 
         u_values = np.linspace(0, 1, resolution) #– also gleichmäßig verteilte Werte zwischen 0 und 1
@@ -42,16 +42,18 @@ def plot_bezier_surface(surface, ray):
             linewidth=3,
             label="Ray"
         )
-        intersection = ray.evaluate(1.75) #momentan vorgegeben aber muss er eig selbst berechnen können - nur als test
 
-        ax.scatter(
-            intersection[0],
-            intersection[1],
-            intersection[2],
-            color="black",
-            s=50,
-            label="Intersection"
-    )
+        if solution is not None:
+            intersection = ray.evaluate(solution[2]) #berechnet den Schnittpunkt mit dem Strahlparameter t
+
+            ax.scatter(
+                intersection[0],
+                intersection[1],
+                intersection[2],
+                color="black",
+                s=50,
+                label="Intersection"
+            )
 
         ax.set_xlabel("X")
         ax.set_ylabel("Y")
