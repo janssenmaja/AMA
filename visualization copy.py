@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 from ray import Ray
 
 
-def plot_bezier_surface(surface, ray, solution):
 
+def plot_bezier_surface(surface, ray, solution, control_points):
         resolution = 30 #Anzahl von Punkten bestimmmen 30x30 
 
         u_values = np.linspace(0, 1, resolution) #– also gleichmäßig verteilte Werte zwischen 0 und 1
@@ -23,25 +23,17 @@ def plot_bezier_surface(surface, ray, solution):
                 Y[i, j] = point[1]
                 Z[i, j] = point[2]
 
-        fig = plt.figure(figsize=(9, 7))
+        fig = plt.figure()
         ax = fig.add_subplot(111, projection="3d")
 
-        # Bézier-Fläche darstellen
-        ax.plot_surface(
-            X,
-            Y,
-            Z,
-            alpha=0.75,
-            linewidth=0,
-            antialiased=True
-        )
-
+        # Bézier-Fläche zeichnen
+        ax.plot_surface(X, Y, Z, alpha=0.7)
 
         # ---------------------------------------------------------
         # Kontrollpunkte und Kontrollnetz
         # ---------------------------------------------------------
 
-        control_points = np.array(surface.control_points)
+        control_points = np.array(control_points)
 
         # Kontrollpunkte darstellen
         ax.scatter(
@@ -49,40 +41,37 @@ def plot_bezier_surface(surface, ray, solution):
             control_points[:, :, 1],
             control_points[:, :, 2],
             color="red",
+            alpha=0.5,
             s=40,
-            alpha=0.55,
-            label="Control Points",
-            depthshade=True
+            label="Control Points"
         )
 
-        # Kontrollnetz zeilenweise
+        # Kontrollnetz in u-Richtung
         for i in range(control_points.shape[0]):
             ax.plot(
                 control_points[i, :, 0],
                 control_points[i, :, 1],
                 control_points[i, :, 2],
                 color="black",
-                linewidth=0.8,
-                alpha=0.3
+                linewidth=1,
+                alpha=0.4
             )
 
-        # Kontrollnetz spaltenweise
+        # Kontrollnetz in v-Richtung
         for j in range(control_points.shape[1]):
             ax.plot(
                 control_points[:, j, 0],
                 control_points[:, j, 1],
                 control_points[:, j, 2],
                 color="black",
-                linewidth=0.8,
-                alpha=0.3
+                linewidth=1
             )
 
-
         # ---------------------------------------------------------
-        # Ray darstellen
+        # Ray zeichnen
         # ---------------------------------------------------------
 
-        t_values = np.linspace(0, 2.5, 100)
+        t_values = np.linspace(0, 2.5, 50)
 
         ray_points = np.array([
             ray.evaluate(t) for t in t_values
@@ -97,64 +86,61 @@ def plot_bezier_surface(surface, ray, solution):
             label="Ray"
         )
 
-
-        # ---------------------------------------------------------
-        # Ray Origin
-        # ---------------------------------------------------------
-
-        origin = ray.evaluate(0)
+        # Ursprung des Rays markieren
+        ray_origin = ray.evaluate(0)
 
         ax.scatter(
-            origin[0],
-            origin[1],
-            origin[2],
+            ray_origin[0],
+            ray_origin[1],
+            ray_origin[2],
             color="black",
             s=25,
-            marker="o",
-            label="Ray Origin",
-            zorder=10
+            label="Ray Origin"
         )
 
-
         # ---------------------------------------------------------
-        # Intersection
+        # Schnittpunkt aus der berechneten Lösung
         # ---------------------------------------------------------
 
         if solution is not None:
 
-            # solution = [u*, v*, t*]
-            intersection = ray.evaluate(solution[2])
+            u = solution[0]
+            v = solution[1]
+            t = solution[2]
+
+            intersection = ray.evaluate(t)
 
             ax.scatter(
                 intersection[0],
                 intersection[1],
                 intersection[2],
                 color="orange",
-                s=200,
-                marker="*",
-                label="Intersection",
-                zorder=20
+                s=120,
+                label="Intersection"
             )
 
+            # Schnittpunkt mit den Parametern beschriften
+            ax.text(
+                intersection[0],
+                intersection[1],
+                intersection[2],
+                r"$P=S(u^*,v^*)$",
+                fontsize=8
+            )
 
-        # ---------------------------------------------------------
-        # Achsenbeschriftungen
-        # ---------------------------------------------------------
+            # Senkrechte Hilfslinie vom Schnittpunkt zur xy-Ebene
+            ax.plot(
+                [intersection[0], intersection[0]],
+                [intersection[1], intersection[1]],
+                [0, intersection[2]],
+                linestyle="--",
+                color="gray",
+                linewidth=1
+            )
 
         ax.set_xlabel("X")
         ax.set_ylabel("Y")
         ax.set_zlabel("Z")
 
-        ax.legend(
-            loc="upper left",
-            framealpha=0.9
-        )
-
-        # Perspektive etwas anpassen
-        ax.view_init(elev=25, azim=-55)
-
-        # Seitenverhältnisse der Darstellung
-        ax.set_box_aspect((1.3, 1.3, 0.9))
-
-        plt.tight_layout()
+        ax.legend()
         plt.show()

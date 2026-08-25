@@ -40,7 +40,7 @@ print(point)
 #ray = Ray([1, 1, 2], [0, 0, -1])
 # Schräger Schnitt durch die Fläche
 # ray = Ray([0.7, 1.2, 2], [0, 0, -1])
-ray = Ray([0.7, 1.2, 1.2], [0, 0, -1])
+ray = Ray([0.7, 1.2, -1.2], [0, 0, 1])
 #ray = Ray([0.35, 0.6, 0.8], [0.2, 0, -0.1]) #ray für Tangential-/schwierigen Fall - hier keine gültigen Schnittpunkte 
 
 
@@ -203,4 +203,4 @@ for result in results:
         break
 
 
-plot_bezier_surface(surface, ray, solution)
+plot_bezier_surface(surface, ray, newton_solution)
