@@ -44,11 +44,14 @@ print(point)
 
 
 # Einfacher Fall: senkrechter Schnitt durch die Fläche
-#ray = Ray([1, 1, 2], [0, 0, -1])
+# ray = Ray([1, 1, 2], [0, 0, -1])
+
 # Schräger Schnitt durch die Fläche
 # ray = Ray([0.7, 1.2, 2], [0, 0, -1])
-ray = Ray([0.7, 1.2, -1.2], [0, 0, 1])
-#ray = Ray([0.35, 0.6, 0.8], [0.2, 0, -0.1]) #ray für Tangential-/schwierigen Fall - hier keine gültigen Schnittpunkte 
+# ray = Ray([0.7, 1.2, -1.2], [0.25, 0.15, 1])
+
+#ray für Tangential-/schwierigen Fall - hier keine gültigen Schnittpunkte 
+ray = Ray([0.35, 0.6, 0.8], [0.2, 0, -0.1]) 
 
 
 #außerhalb des gültigen Bézier-Parameterbereichs [0,1] - dh evtl. Solver-Konvergenz ≠ automatisch gültiger Ray-Surface-Intersection. - prüfen wir hier *
@@ -112,6 +115,22 @@ for initial_guess in initial_guesses:
     print("Newton-Zeit:", newton_time)
     print("Broyden-Zeit:", broyden_time)
 
+
+
+#Für die Ausgabe der Residuen der beiden Solver 
+    newton_residual = np.linalg.norm(
+        equation_system(surface, ray, newton_solution[0], newton_solution[1], newton_solution[2])
+    )
+    broyden_residual = np.linalg.norm(
+        equation_system(surface, ray, broyden_solution[0], broyden_solution[1], broyden_solution[2])
+    )
+
+
+
+
+    print("Newton Residual:", newton_residual)
+    print("Broyden Residual:", broyden_residual)
+
     #gültige Lösung überprüfen, ob sie innerhalb des gültigen Bereichs liegt *
     if (newton_solution is not None
             and 0 <= newton_solution[0] <= 1
@@ -144,9 +163,11 @@ for initial_guess in initial_guesses:
         "newton_solution": newton_solution,
         "newton_iterations": newton_iterations,
         "newton_time": newton_time,
+        "newton_residual": newton_residual,
         "broyden_solution": broyden_solution,
         "broyden_iterations": broyden_iterations,
-        "broyden_time": broyden_time
+        "broyden_time": broyden_time,
+        "broyden_residual": broyden_residual
     })
 
 
@@ -162,6 +183,8 @@ print(
     f"{'Broyden It.':<13}"
     f"{'Newton Zeit':<15}"
     f"{'Broyden Zeit':<15}"
+    f"{'Newton Res.':<15}"
+    f"{'Broyden Res.':<15}"
     f"{'Newton':<12}"
     f"{'Broyden':<12}"
 )
@@ -190,6 +213,8 @@ for result in results:
         f"{result['broyden_iterations']:<13}"
         f"{result['newton_time']:<15.6f}"
         f"{result['broyden_time']:<15.6f}"
+        f"{result['newton_residual']:<15.2e}"
+        f"{result['broyden_residual']:<15.2e}"
         f"{'gültig' if newton_valid else 'ungültig':<12}"
         f"{'gültig' if broyden_valid else 'ungültig':<12}"
     )
