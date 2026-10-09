@@ -7,6 +7,7 @@ from jacobian import jacobian
 from newton_solver import newton_solver
 from broyden_solver import broyden_solver
 import time
+import numpy as np
 
 #control_points = [
 #    [[0, 0, 0], [0, 1, 1], [0, 2, 0]],
@@ -34,7 +35,7 @@ control_points = [
 ]
 
 surface = BezierSurface(control_points)
-#erstellt die Bézier-Fläche aus deinen 9 Kontrollpunkten.
+#erstellt die Bézier-Fläche aus deinen 16 Kontrollpunkten.
 
 point = surface.evaluate(0.5, 0.5)
 #berechnet den Punkt bzw. die Stelle auf der Fläche, bei der sowohl u als auch v in der Mitte liegen.
@@ -45,10 +46,16 @@ print(point)
 
 # Einfacher Fall: senkrechter Schnitt durch die Fläche
 #ray = Ray([1, 1, 2], [0, 0, -1])
-# Schräger Schnitt durch die Fläche
+# senkrechter Schnitt durch die Fläche
 # ray = Ray([0.7, 1.2, 2], [0, 0, -1])
-ray = Ray([0.7, 1.2, -1.2], [0, 0, 1])
 #ray = Ray([0.35, 0.6, 0.8], [0.2, 0, -0.1]) #ray für Tangential-/schwierigen Fall - hier keine gültigen Schnittpunkte 
+
+
+#ray = Ray([0.7, 1.2, -1.2], [0, 0, 1]) #Tesr Case 1
+# Test Case 2: schräger Ray
+ray = Ray([0.4, 1.0, -0.6875], [0.3, 0, 1])
+# Test Case 3: Ray ohne gültigen Schnittpunkt
+#ray = Ray([0.35, 0.6, 0.8], [0.2, 0, -0.1])
 
 
 #außerhalb des gültigen Bézier-Parameterbereichs [0,1] - dh evtl. Solver-Konvergenz ≠ automatisch gültiger Ray-Surface-Intersection. - prüfen wir hier *
@@ -76,6 +83,29 @@ initial_guesses = [ #testen mehrere Startwerte, um die Robustheit der Solver zu 
 ]
 
 
+def measure_runtime(solver, surface, ray, initial_guess, repetitions=1000):
+
+    # Einmal ausführen, damit der erste Lauf nicht in die Messung eingeht
+    solver(surface, ray, initial_guess)
+
+    times = []
+
+    for _ in range(repetitions):
+
+        start = time.perf_counter()
+
+        solver(surface, ray, initial_guess)
+
+        end = time.perf_counter()
+
+        times.append((end - start) * 1000)  # Millisekunden
+
+    return (
+        np.mean(times),
+        np.median(times),
+        np.std(times)
+    )
+
 # Ergebnisse speichern, damit wir später nicht nur den letzten Startwert betrachten
 results = []
 
@@ -84,33 +114,71 @@ for initial_guess in initial_guesses:
 
     print("\nStartwert:", initial_guess)
 
-    # Newton-Zeit messen
-    start = time.perf_counter()
-
+    # Newton einmal normal ausführen, um Lösung und Iterationen zu erhalten
     newton_solution, newton_iterations = newton_solver(
         surface,
         ray,
         initial_guess
     )
 
-    newton_time = time.perf_counter() - start
+    # Newton-Laufzeit über 1000 Wiederholungen messen
+    newton_time, newton_median, newton_std = measure_runtime(
+        newton_solver,
+        surface,
+        ray,
+        initial_guess
+    )
 
     # Broyden-Zeit messen
-    start = time.perf_counter()
-
+    # Broyden einmal normal ausführen, um Lösung und Iterationen zu erhalten
     broyden_solution, broyden_iterations = broyden_solver(
         surface,
         ray,
         initial_guess
     )
 
-    broyden_time = time.perf_counter() - start
+    # Broyden-Laufzeit über 1000 Wiederholungen messen
+    broyden_time, broyden_median, broyden_std = measure_runtime(
+        broyden_solver,
+        surface,
+        ray,
+        initial_guess
+    )
 
     print("Newton:", newton_solution, newton_iterations)
     print("Broyden:", broyden_solution, broyden_iterations)
 
-    print("Newton-Zeit:", newton_time)
-    print("Broyden-Zeit:", broyden_time)
+    print(f"Newton-Zeit: {newton_time:.4f} ms")
+    print(f"Broyden-Zeit: {broyden_time:.4f} ms")
+
+    print(f"Newton Median: {newton_median:.4f} ms")
+    print(f"Broyden Median: {broyden_median:.4f} ms")
+
+    print(f"Newton Std.: {newton_std:.4f} ms")
+    print(f"Broyden Std.: {broyden_std:.4f} ms")
+        # Residualfehler der berechneten Lösungen
+    newton_residual = np.linalg.norm(
+        equation_system(
+            surface,
+            ray,
+            newton_solution[0],
+            newton_solution[1],
+            newton_solution[2]
+        )
+    )
+
+    broyden_residual = np.linalg.norm(
+        equation_system(
+            surface,
+            ray,
+            broyden_solution[0],
+            broyden_solution[1],
+            broyden_solution[2]
+        )
+    )
+
+    print("Newton Residual:", newton_residual)
+    print("Broyden Residual:", broyden_residual)
 
     #gültige Lösung überprüfen, ob sie innerhalb des gültigen Bereichs liegt *
     if (newton_solution is not None
@@ -144,9 +212,15 @@ for initial_guess in initial_guesses:
         "newton_solution": newton_solution,
         "newton_iterations": newton_iterations,
         "newton_time": newton_time,
+        "newton_median": newton_median,
+        "newton_std": newton_std,
+        "newton_residual": newton_residual,
         "broyden_solution": broyden_solution,
         "broyden_iterations": broyden_iterations,
-        "broyden_time": broyden_time
+        "broyden_time": broyden_time,
+        "broyden_median": broyden_median,
+        "broyden_std": broyden_std,
+        "broyden_residual": broyden_residual
     })
 
 
@@ -162,6 +236,8 @@ print(
     f"{'Broyden It.':<13}"
     f"{'Newton Zeit':<15}"
     f"{'Broyden Zeit':<15}"
+    f"{'Newton Res.':<15}"
+f"{'Broyden Res.':<15}"
     f"{'Newton':<12}"
     f"{'Broyden':<12}"
 )
@@ -190,6 +266,8 @@ for result in results:
         f"{result['broyden_iterations']:<13}"
         f"{result['newton_time']:<15.6f}"
         f"{result['broyden_time']:<15.6f}"
+        f"{result['newton_residual']:<15.2e}"
+        f"{result['broyden_residual']:<15.2e}"
         f"{'gültig' if newton_valid else 'ungültig':<12}"
         f"{'gültig' if broyden_valid else 'ungültig':<12}"
     )
