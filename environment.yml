@@ -1,0 +1,9 @@
+# Conda-Umgebung für das Projekt "Newton vs. Broyden"
+# Einrichten mit:  conda env create -f environment.yml
+name: ama-newton-broyden
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy
+  - matplotlib

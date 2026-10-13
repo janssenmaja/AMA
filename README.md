@@ -11,39 +11,40 @@ Für verschiedene Startwerte vergleicht das Programm unter anderem die Anzahl de
 
 ## 2. Voraussetzungen
 
-Für die Ausführung werden benötigt:
+- **Empfohlen:** [Anaconda](https://www.anaconda.com/download) oder [Miniconda](https://docs.conda.io/en/latest/miniconda.html) (Conda)
+- **Alternativ:** Python ab Version 3.8 mit `pip`
 
-- Python 3
-- NumPy
-- Matplotlib
+Benötigte externe Bibliotheken: NumPy und Matplotlib. Sie sind in `environment.yml` (für Conda) und in `requirements.txt` (für pip) festgelegt. Alle übrigen Module sind eigene Python-Dateien im Projektordner.
 
-Das Projekt verwendet zusätzlich eigene Python-Module, die im Projektordner enthalten sind.
+Das Projekt wurde mit Python 3.9 und 3.10 getestet.
 
 ## 3. Installation
 
-### Schritt 1: Python installieren
+### Schritt 1: Projekt herunterladen
 
-Installieren Sie Python von der offiziellen Website:
+Laden Sie das Projekt auf GitHub (https://github.com/janssenmaja/AMA) über den grünen Button **Code → Download ZIP** herunter und entpacken Sie die ZIP-Datei (der Ordner heißt dann `AMA-main`).
 
-https://www.python.org/downloads/
+Öffnen Sie anschließend ein Terminal im Projektordner, in dem sich die Datei `Main.py` befindet. Unter Windows verwenden Sie für Variante A den **Anaconda Prompt**.
 
-Das Projekt wurde mit Python 3.9 und 3.10 getestet. Jede Python-Version ab 3.8 sollte funktionieren.
+### Schritt 2, Variante A: Conda-Umgebung einrichten (empfohlen)
 
-### Schritt 2: Projektordner öffnen
+```bash
+conda env create -f environment.yml
+conda activate ama-newton-broyden
+```
 
-Laden Sie das Projekt auf GitHub (https://github.com/janssenmaja/AMA) über den grünen Button **Code → Download ZIP** herunter und entpacken Sie die ZIP-Datei (der Ordner heißt dann `AMA-main`). Öffnen Sie anschließend ein Terminal im Projektordner, in dem sich die Datei `Main.py` befindet.
+Der erste Befehl legt die Umgebung `ama-newton-broyden` mit Python 3.10, NumPy und Matplotlib an. Er wird nur einmal benötigt. Der zweite Befehl aktiviert die Umgebung. Danach steht `(ama-newton-broyden)` vor der Eingabezeile.
 
-> **Hinweis zum Python-Befehl:** Je nach Betriebssystem heißt der Befehl unterschiedlich. Unter **macOS und Linux** verwenden Sie `python3`, unter **Windows** `python` oder `py`. In den folgenden Befehlen steht `python3`. Ersetzen Sie es unter Windows entsprechend.
+### Schritt 2, Variante B: ohne Conda (venv + pip)
 
-### Schritt 3 (empfohlen): Virtuelle Umgebung anlegen
-
-Auf neueren macOS- und Linux-Systemen kann `pip install` ohne virtuelle Umgebung mit der Meldung „externally-managed-environment“ abbrechen. Legen Sie deshalb im Projektordner eine virtuelle Umgebung an und aktivieren Sie sie:
+Falls Conda nicht installiert ist, kann stattdessen eine virtuelle Umgebung mit Pythons eigenem Modul `venv` verwendet werden.
 
 macOS / Linux:
 
 ```bash
 python3 -m venv venv
 source venv/bin/activate
+python3 -m pip install -r requirements.txt
 ```
 
 Windows:
@@ -51,27 +52,42 @@ Windows:
 ```powershell
 py -m venv venv
 venv\Scripts\activate
+python -m pip install -r requirements.txt
 ```
 
-Nach der Aktivierung steht `(venv)` vor der Eingabezeile. Innerhalb der aktivierten Umgebung funktioniert auch unter macOS/Linux der Befehl `python`.
-
-### Schritt 4: Benötigte Bibliotheken installieren
-
-Installieren Sie die benötigten Bibliotheken mit folgendem Befehl:
-
-```bash
-python3 -m pip install -r requirements.txt
-```
+Danach steht `(venv)` vor der Eingabezeile.
 
 ## 4. Ausführung des Programms
 
-Führen Sie im Projektordner folgenden Befehl aus:
+### Über die Kommandozeile
+
+Führen Sie in der aktivierten Umgebung (Variante A oder B) im Projektordner folgenden Befehl aus:
 
 ```bash
-python3 Main.py
+python Main.py
 ```
 
-(Unter Windows: `python Main.py` bzw. `py Main.py`.)
+(Falls `python` unter macOS/Linux nicht gefunden wird, verwenden Sie `python3 Main.py`.)
+
+### In Spyder
+
+Mit Anaconda ist Spyder bereits installiert, und die Basis-Umgebung von Anaconda enthält NumPy und Matplotlib. Es ist daher keine eigene Umgebung nötig:
+
+1. Spyder starten.
+2. `Main.py` aus dem Projektordner öffnen.
+3. Mit **F5** (bzw. **Run → Run**) ausführen.
+
+Die Terminal-Ausgabe erscheint in der IPython-Konsole, die Grafik im **Plots**-Bereich.
+
+### In Jupyter
+
+Öffnen Sie ein Notebook im Projektordner und führen Sie in einer Zelle aus:
+
+```python
+%run Main.py
+```
+
+### Was passiert beim Ausführen?
 
 Das Programm führt die Berechnungen mit dem Newton- und dem Broyden-Verfahren durch und gibt die Ergebnisse im Terminal aus.
 
@@ -89,7 +105,7 @@ Die Spalten der Ergebnistabelle bedeuten:
 
 Die Laufzeiten hängen vom Rechner ab und weichen daher von den Werten im Bericht ab.
 
-Anschließend öffnet sich ein Grafikfenster mit der Bézier-Fläche, dem Kontrollnetz, dem Strahl und, sofern vorhanden, dem ersten gültigen Schnittpunkt des Newton-Verfahrens (orangefarbener Stern). Das Fenster lässt sich mit der Maus drehen. Das Programm ist erst beendet, wenn Sie dieses Fenster schließen. In Test Case 3 gibt es keinen gültigen Schnittpunkt, deshalb wird dort kein Stern eingezeichnet.
+Anschließend öffnet sich (bei Ausführung über die Kommandozeile) ein Grafikfenster mit der Bézier-Fläche, dem Kontrollnetz, dem Strahl und, sofern vorhanden, dem ersten gültigen Schnittpunkt des Newton-Verfahrens (orangefarbener Stern). Das Fenster lässt sich mit der Maus drehen. Das Programm ist erst beendet, wenn Sie dieses Fenster schließen. In Test Case 3 gibt es keinen gültigen Schnittpunkt, deshalb wird dort kein Stern eingezeichnet.
 
 ## 5. Aufbau des Projekts
 
