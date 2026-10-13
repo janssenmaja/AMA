@@ -37,22 +37,23 @@ Entpacken Sie die ZIP-Datei. Öffnen Sie anschließend ein Terminal im Projektor
 
 Installieren Sie die benötigten Bibliotheken mit folgendem Befehl:
 
-## bash
+```bash
 python -m pip install -r requirements.txt
-
+```
 
 Falls der Befehl `python` auf Ihrem System nicht verfügbar ist, können Sie unter Windows stattdessen Folgendes versuchen:
 
-## powershell
+```powershell
 py -m pip install -r requirements.txt
-
+```
 
 ## 4. Ausführung des Programms
 
 Führen Sie im Projektordner folgenden Befehl aus:
 
-## bash
+```bash
 python Main.py
+```
 
 Das Programm führt die Berechnungen mit dem Newton- und dem Broyden-Verfahren durch und gibt die Ergebnisse im Terminal aus. Anschließend wird eine Visualisierung angezeigt. Falls die Programmausführung auf das Schließen des Grafikfensters wartet, schließen Sie das Fenster, um die Ausführung abzuschließen.
 
@@ -66,11 +67,20 @@ Das Programm führt die Berechnungen mit dem Newton- und dem Broyden-Verfahren d
 - `newton_solver.py` – Implementiert das Newton-Verfahren.
 - `broyden_solver.py` – Implementiert das Broyden-Verfahren.
 - `visualization.py` – Erstellt die Visualisierung der Bézier-Fläche, des Strahls und der ausgewählten Lösung.
-- `testcase2.png` – Im Projekt enthaltene Bilddatei.
+- `testcase2.png` – Beispielausgabe der Visualisierung für Test Case 2 (schräger Strahl): Bézier-Fläche mit Kontrollnetz, Strahl und berechnetem Schnittpunkt.
 - `requirements.txt` – Liste der benötigten externen Python-Bibliotheken.
 
 ## 6. Hinweise
 
 - Führen Sie `Main.py` aus dem Projektordner aus, damit die lokalen Module korrekt importiert werden können.
-- Der verwendete Strahl und die Startwerte sind in `Main.py` festgelegt. Weitere dort auskommentierte Testkonfigurationen können bei Bedarf aktiviert werden.
+- Der verwendete Strahl und die Startwerte sind in `Main.py` festgelegt. Standardmäßig ist **Test Case 2** (schräger Strahl) aktiv.
+- Um einen anderen Testfall auszuführen, kommentieren Sie in `Main.py` die aktive `ray = ...`-Zeile aus und entfernen das `#` vor der gewünschten Zeile:
+
+  ```python
+  #ray = Ray([0.7, 1.2, -1.2], [0, 0, 1])           # Test Case 1: senkrechter Strahl
+  ray = Ray([0.4, 1.0, -0.6875], [0.3, 0, 1])       # Test Case 2: schräger Strahl
+  #ray = Ray([0.35, 0.6, 0.8], [0.2, 0, -0.1])      # Test Case 3: kein gültiger Schnittpunkt
+  ```
+
+  Es darf immer nur genau eine `ray = ...`-Zeile aktiv sein. In Test Case 3 konvergieren die Verfahren zwar numerisch, die Lösung liegt aber außerhalb des gültigen Parameterbereichs und wird daher als „ungültig“ ausgegeben. Das ist so beabsichtigt.
 - Die Laufzeitmessungen werden für jedes Lösungsverfahren und jeden Startwert 1.000-mal wiederholt. Daher kann die Ausführung etwas Zeit in Anspruch nehmen.

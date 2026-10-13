@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Visual Studio (lokale Caches, Copilot-Indizes)
+.vs/
