@@ -20,11 +20,15 @@ Das Projekt wurde mit Python 3.9 und 3.10 getestet.
 
 ## 3. Installation
 
-### Schritt 1: Projekt herunterladen
+### Schritt 1: Terminal im Projektordner öffnen
 
-Laden Sie das Projekt auf GitHub (https://github.com/janssenmaja/AMA) über den grünen Button **Code → Download ZIP** herunter und entpacken Sie die ZIP-Datei (der Ordner heißt dann `AMA-main`).
+Öffnen Sie ein Terminal und wechseln Sie in den Projektordner, also den Ordner, in dem sich diese README sowie `Main.py` und `environment.yml` befinden. Beispiel:
 
-Öffnen Sie anschließend ein Terminal im Projektordner, in dem sich die Datei `Main.py` befindet. Unter Windows verwenden Sie für Variante A den **Anaconda Prompt**.
+```bash
+cd Pfad/zum/Projektordner
+```
+
+Unter Windows verwenden Sie für Variante A den **Anaconda Prompt** (wird mit Anaconda/Miniconda installiert).
 
 ### Schritt 2, Variante A: Conda-Umgebung einrichten (empfohlen)
 
