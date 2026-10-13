@@ -31,7 +31,7 @@ Das Projekt wurde mit Python 3.9 und 3.10 getestet. Jede Python-Version ab 3.8 s
 
 ### Schritt 2: Projektordner öffnen
 
-Entpacken Sie die ZIP-Datei. Öffnen Sie anschließend ein Terminal im Projektordner, in dem sich die Datei `Main.py` befindet.
+Laden Sie das Projekt auf GitHub (https://github.com/janssenmaja/AMA) über den grünen Button **Code → Download ZIP** herunter und entpacken Sie die ZIP-Datei (der Ordner heißt dann `AMA-main`). Öffnen Sie anschließend ein Terminal im Projektordner, in dem sich die Datei `Main.py` befindet.
 
 > **Hinweis zum Python-Befehl:** Je nach Betriebssystem heißt der Befehl unterschiedlich. Unter **macOS und Linux** verwenden Sie `python3`, unter **Windows** `python` oder `py`. In den folgenden Befehlen steht `python3`. Ersetzen Sie es unter Windows entsprechend.
 
@@ -77,7 +77,19 @@ Das Programm führt die Berechnungen mit dem Newton- und dem Broyden-Verfahren d
 
 **Hinweis zur Terminal-Ausgabe:** Während der Laufzeitmessung erscheinen sehr viele Zeilen der Form `Iteration 1: x = [...]` (insgesamt mehrere tausend). Das ist normal und kein Fehler: Die Solver geben jeden Iterationsschritt aus, und die Messung wird 1.000-mal wiederholt. Die zusammengefasste Ergebnistabelle steht **ganz am Ende der Ausgabe** unter der Überschrift `ERGEBNISSE`.
 
-Anschließend wird eine Visualisierung angezeigt. Falls die Programmausführung auf das Schließen des Grafikfensters wartet, schließen Sie das Fenster, um die Ausführung abzuschließen.
+Die Spalten der Ergebnistabelle bedeuten:
+
+| Spalte | Bedeutung |
+|---|---|
+| `Startwert` | Startschätzung $(u_0, v_0, t_0)$ |
+| `Newton It.` / `Broyden It.` | Anzahl der Iterationen bis zur Konvergenz ($\lVert F \rVert < 10^{-6}$, max. 20) |
+| `Newton Zeit` / `Broyden Zeit` | Mittlere Laufzeit eines vollständigen Solver-Aufrufs in **Millisekunden**, gemittelt über 1.000 Wiederholungen |
+| `Newton Res.` / `Broyden Res.` | Residualnorm $\lVert F(u, v, t) \rVert$ an der berechneten Lösung |
+| `Newton` / `Broyden` | `gültig`, wenn $u, v \in [0, 1]$ und $t \ge 0$, sonst `ungültig` |
+
+Die Laufzeiten hängen vom Rechner ab und weichen daher von den Werten im Bericht ab.
+
+Anschließend öffnet sich ein Grafikfenster mit der Bézier-Fläche, dem Kontrollnetz, dem Strahl und, sofern vorhanden, dem ersten gültigen Schnittpunkt des Newton-Verfahrens (orangefarbener Stern). Das Fenster lässt sich mit der Maus drehen. Das Programm ist erst beendet, wenn Sie dieses Fenster schließen. In Test Case 3 gibt es keinen gültigen Schnittpunkt, deshalb wird dort kein Stern eingezeichnet.
 
 ## 5. Aufbau des Projekts
 
@@ -105,4 +117,4 @@ Anschließend wird eine Visualisierung angezeigt. Falls die Programmausführung 
   ```
 
   Es darf immer nur genau eine `ray = ...`-Zeile aktiv sein. In Test Case 3 konvergieren die Verfahren zwar numerisch, die Lösung liegt aber außerhalb des gültigen Parameterbereichs und wird daher als „ungültig“ ausgegeben. Das ist so beabsichtigt.
-- Die Laufzeitmessungen werden für jedes Lösungsverfahren und jeden Startwert 1.000-mal wiederholt. Daher kann die Ausführung etwas Zeit in Anspruch nehmen.
+- Die Laufzeitmessungen werden für jedes Lösungsverfahren und jeden Startwert 1.000-mal wiederholt. Ein Programmdurchlauf dauert daher etwa 10–20 Sekunden (abhängig vom Rechner und vom Testfall).
