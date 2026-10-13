@@ -27,24 +27,40 @@ Installieren Sie Python von der offiziellen Website:
 
 https://www.python.org/downloads/
 
-Das Projekt wurde mit Python 3 entwickelt. Eine konkrete Python-Version sollte verwendet werden, sofern sie mit den installierten Bibliotheken kompatibel ist.
+Das Projekt wurde mit Python 3.9 und 3.10 getestet. Jede Python-Version ab 3.8 sollte funktionieren.
 
 ### Schritt 2: Projektordner öffnen
 
 Entpacken Sie die ZIP-Datei. Öffnen Sie anschließend ein Terminal im Projektordner, in dem sich die Datei `Main.py` befindet.
 
-### Schritt 3: Benötigte Bibliotheken installieren
+> **Hinweis zum Python-Befehl:** Je nach Betriebssystem heißt der Befehl unterschiedlich. Unter **macOS und Linux** verwenden Sie `python3`, unter **Windows** `python` oder `py`. In den folgenden Befehlen steht `python3`. Ersetzen Sie es unter Windows entsprechend.
+
+### Schritt 3 (empfohlen): Virtuelle Umgebung anlegen
+
+Auf neueren macOS- und Linux-Systemen kann `pip install` ohne virtuelle Umgebung mit der Meldung „externally-managed-environment“ abbrechen. Legen Sie deshalb im Projektordner eine virtuelle Umgebung an und aktivieren Sie sie:
+
+macOS / Linux:
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+Windows:
+
+```powershell
+py -m venv venv
+venv\Scripts\activate
+```
+
+Nach der Aktivierung steht `(venv)` vor der Eingabezeile. Innerhalb der aktivierten Umgebung funktioniert auch unter macOS/Linux der Befehl `python`.
+
+### Schritt 4: Benötigte Bibliotheken installieren
 
 Installieren Sie die benötigten Bibliotheken mit folgendem Befehl:
 
 ```bash
-python -m pip install -r requirements.txt
-```
-
-Falls der Befehl `python` auf Ihrem System nicht verfügbar ist, können Sie unter Windows stattdessen Folgendes versuchen:
-
-```powershell
-py -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
 
 ## 4. Ausführung des Programms
@@ -52,10 +68,16 @@ py -m pip install -r requirements.txt
 Führen Sie im Projektordner folgenden Befehl aus:
 
 ```bash
-python Main.py
+python3 Main.py
 ```
 
-Das Programm führt die Berechnungen mit dem Newton- und dem Broyden-Verfahren durch und gibt die Ergebnisse im Terminal aus. Anschließend wird eine Visualisierung angezeigt. Falls die Programmausführung auf das Schließen des Grafikfensters wartet, schließen Sie das Fenster, um die Ausführung abzuschließen.
+(Unter Windows: `python Main.py` bzw. `py Main.py`.)
+
+Das Programm führt die Berechnungen mit dem Newton- und dem Broyden-Verfahren durch und gibt die Ergebnisse im Terminal aus.
+
+**Hinweis zur Terminal-Ausgabe:** Während der Laufzeitmessung erscheinen sehr viele Zeilen der Form `Iteration 1: x = [...]` (insgesamt mehrere tausend). Das ist normal und kein Fehler: Die Solver geben jeden Iterationsschritt aus, und die Messung wird 1.000-mal wiederholt. Die zusammengefasste Ergebnistabelle steht **ganz am Ende der Ausgabe** unter der Überschrift `ERGEBNISSE`.
+
+Anschließend wird eine Visualisierung angezeigt. Falls die Programmausführung auf das Schließen des Grafikfensters wartet, schließen Sie das Fenster, um die Ausführung abzuschließen.
 
 ## 5. Aufbau des Projekts
 
