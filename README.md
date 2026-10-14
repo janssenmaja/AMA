@@ -28,7 +28,7 @@ Das Projekt wurde mit Python 3.9 und 3.10 getestet.
 cd Pfad/zum/Projektordner
 ```
 
-Unter Windows verwenden Sie für Variante A den **Anaconda Prompt** (wird mit Anaconda/Miniconda installiert).
+Unter Windows verwenden Sie den **Anaconda Prompt** (wird mit Anaconda/Miniconda installiert).
 
 ### Schritt 2, Conda-Umgebung einrichten (empfohlen)
 
@@ -86,7 +86,7 @@ Anschließend öffnet sich (bei Ausführung über die Kommandozeile) ein Grafikf
 - `broyden_solver.py` – Implementiert das Broyden-Verfahren.
 - `visualization.py` – Erstellt die Visualisierung der Bézier-Fläche, des Strahls und der ausgewählten Lösung.
 - `testcase2.png` – Beispielausgabe der Visualisierung für Test Case 2 (schräger Strahl): Bézier-Fläche mit Kontrollnetz, Strahl und berechnetem Schnittpunkt.
-- `requirements.txt` – Liste der benötigten externen Python-Bibliotheken.
+
 
 ## 6. Hinweise
 
