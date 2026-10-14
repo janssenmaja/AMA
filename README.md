@@ -30,7 +30,7 @@ cd Pfad/zum/Projektordner
 
 Unter Windows verwenden Sie für Variante A den **Anaconda Prompt** (wird mit Anaconda/Miniconda installiert).
 
-### Schritt 2, Variante A: Conda-Umgebung einrichten (empfohlen)
+### Schritt 2, Conda-Umgebung einrichten (empfohlen)
 
 ```bash
 conda env create -f environment.yml
@@ -45,7 +45,7 @@ Der erste Befehl legt die Umgebung `ama-newton-broyden` mit Python 3.10, NumPy u
 
 ### Über die Kommandozeile
 
-Führen Sie in der aktivierten Umgebung (Variante A oder B) im Projektordner folgenden Befehl aus:
+Führen Sie in der aktivierten Umgebung im Projektordner folgenden Befehl aus:
 
 ```bash
 python Main.py
@@ -53,23 +53,7 @@ python Main.py
 
 (Falls `python` unter macOS/Linux nicht gefunden wird, verwenden Sie `python3 Main.py`.)
 
-### In Spyder
 
-Mit Anaconda ist Spyder bereits installiert, und die Basis-Umgebung von Anaconda enthält NumPy und Matplotlib. Es ist daher keine eigene Umgebung nötig:
-
-1. Spyder starten.
-2. `Main.py` aus dem Projektordner öffnen.
-3. Mit **F5** (bzw. **Run → Run**) ausführen.
-
-Die Terminal-Ausgabe erscheint in der IPython-Konsole, die Grafik im **Plots**-Bereich.
-
-### In Jupyter
-
-Öffnen Sie ein Notebook im Projektordner und führen Sie in einer Zelle aus:
-
-```python
-%run Main.py
-```
 
 ### Was passiert beim Ausführen?
 
