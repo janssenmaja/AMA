@@ -24,6 +24,8 @@ Miniconda stellt Conda zur Verfügung, mit dem eine separate Python-Umgebung fü
 
 Öffnen Sie die offizielle Installationsseite:
 
+https://www.anaconda.com/download/success?reg=skipped
+
 [Anaconda](https://www.anaconda.com/download) oder [Miniconda](https://docs.conda.io/en/latest/miniconda.html) 
 
 Laden Sie den grafischen Installer (Graphical Installer) für Windows 64-Bit herunter und führen Sie die Installation mit den empfohlenen Standardeinstellungen durch.
