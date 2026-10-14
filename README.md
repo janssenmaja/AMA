@@ -39,27 +39,7 @@ conda activate ama-newton-broyden
 
 Der erste Befehl legt die Umgebung `ama-newton-broyden` mit Python 3.10, NumPy und Matplotlib an. Er wird nur einmal benötigt. Der zweite Befehl aktiviert die Umgebung. Danach steht `(ama-newton-broyden)` vor der Eingabezeile.
 
-### Schritt 2, Variante B: ohne Conda (venv + pip)
 
-Falls Conda nicht installiert ist, kann stattdessen eine virtuelle Umgebung mit Pythons eigenem Modul `venv` verwendet werden.
-
-macOS / Linux:
-
-```bash
-python3 -m venv venv
-source venv/bin/activate
-python3 -m pip install -r requirements.txt
-```
-
-Windows:
-
-```powershell
-py -m venv venv
-venv\Scripts\activate
-python -m pip install -r requirements.txt
-```
-
-Danach steht `(venv)` vor der Eingabezeile.
 
 ## 4. Ausführung des Programms
 
