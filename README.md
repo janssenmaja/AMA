@@ -62,6 +62,8 @@ Ersetzen Sie den Beispielpfad durch den tatsächlichen Speicherort Ihres Projekt
 
 ```bash
 conda env create -f environment.yml
+
+
 conda activate ama-newton-broyden
 ```
 
@@ -128,3 +130,4 @@ Anschließend öffnet sich (bei Ausführung über die Kommandozeile) ein Grafikf
 
   Es darf immer nur genau eine `ray = ...`-Zeile aktiv sein. In Test Case 3 konvergieren die Verfahren zwar numerisch, die Lösung liegt aber außerhalb des gültigen Parameterbereichs und wird daher als „ungültig“ ausgegeben. Das ist so beabsichtigt.
 - Die Laufzeitmessungen werden für jedes Lösungsverfahren und jeden Startwert 1.000-mal wiederholt. Ein Programmdurchlauf dauert daher etwa 10–20 Sekunden (abhängig vom Rechner und vom Testfall).
+- Liegt die ZIP in „Downloads“ oder „Dokumente“ und hat das Terminal keine Freigabe, scheitert alles mit einer kryptischen Fehlermeldung.
