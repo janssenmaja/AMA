@@ -50,8 +50,8 @@ print(point)
 # ray = Ray([0.7, 1.2, 2], [0, 0, -1])
 #ray = Ray([0.35, 0.6, 0.8], [0.2, 0, -0.1]) #ray für Tangential-/schwierigen Fall - hier keine gültigen Schnittpunkte 
 
-
-#ray = Ray([0.7, 1.2, -1.2], [0, 0, 1]) #Tesr Case 1
+#Test Case 1
+#ray = Ray([0.7, 1.2, -1.2], [0, 0, 1]) 
 # Test Case 2: schräger Ray
 ray = Ray([0.4, 1.0, -0.6875], [0.3, 0, 1])
 # Test Case 3: Ray ohne gültigen Schnittpunkt
