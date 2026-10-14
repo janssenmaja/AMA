@@ -18,6 +18,7 @@ Für verschiedene Startwerte vergleicht das Programm unter anderem die Anzahl de
 Die benötigten Versionen und Bibliotheken sind in `environment.yml` festgelegt. Alle übrigen Module sind eigene Python-Dateien im Projektordner.
 
 ## 3. Installation
+
 ### Schritt 1: Miniconda installieren | falls bereits installiert, diesen Schritt einfach überspringen
 
 Miniconda stellt Conda zur Verfügung, mit dem eine separate Python-Umgebung für das Projekt erstellt und verwaltet werden kann.
@@ -41,22 +42,25 @@ Wenn eine Versionsnummer angezeigt wird, ist Conda verfügbar.
 
 ### Schritt 2: Terminal im Projektordner öffnen
 
-Öffnen Sie den Miniconda bzw. Anaconda Prompt oder einen anderen Terminal und wechseln Sie in den Projektordner, also den Ordner, in dem sich diese README sowie `Main.py` und `environment.yml` befinden. Beispiel:
+Wechseln Sie in den Projektordner, also den Ordner, in dem sich diese README sowie `Main.py` und `environment.yml` befinden. 
 
-Windows:
-
+*Windows:*
+2. Klicken Sie oben in die Adressleiste des Datei-Explorers und kopieren Sie den vollständigen Pfad mit Strg + C.
+3. Öffnen Sie über das Windows-Startmenü den *Miniconda Prompt*  oder *Anaconda Prompt* .
+4. Geben Sie `cd`  (mit einem Leerzeichen danach) ein, fügen Sie den kopierten Pfad mit Strg + V ein und drücken Sie Enter.
+Beispiel:
 ```bash
 cd "C:\Pfad\zum\Projektordner"
 ```
 
-MacOS:
-
+*macOS:*
+1. Öffnen Sie das Programm *Terminal* (⌘ + Leertaste drücken, „Terminal“ eingeben, Enter).
+2. Tippen Sie `cd ` (mit einem Leerzeichen danach), ziehen Sie den entpackten Projektordner aus dem Finder in das Terminalfenster und drücken Sie Enter.
+Beispiel:
 ```bash
 cd "/Pfad/zum/Projektordner"  
 ```
 
-
-Ersetzen Sie den Beispielpfad durch den tatsächlichen Speicherort Ihres Projektordners. Führen Sie die folgenden Befehle in diesem Ordner aus.
 
 ### Schritt 3: Conda-Umgebung einrichten
 
@@ -131,3 +135,4 @@ Anschließend öffnet sich (bei Ausführung über die Kommandozeile) ein Grafikf
   Es darf immer nur genau eine `ray = ...`-Zeile aktiv sein. In Test Case 3 konvergieren die Verfahren zwar numerisch, die Lösung liegt aber außerhalb des gültigen Parameterbereichs und wird daher als „ungültig“ ausgegeben. Das ist so beabsichtigt.
 - Die Laufzeitmessungen werden für jedes Lösungsverfahren und jeden Startwert 1.000-mal wiederholt. Ein Programmdurchlauf dauert daher etwa 10–20 Sekunden (abhängig vom Rechner und vom Testfall).
 - Liegt die ZIP in „Downloads“ oder „Dokumente“ und hat das Terminal keine Freigabe, scheitert alles mit einer kryptischen Fehlermeldung.
+- Das vollständige Projekt einschließlich Quellcode und Dokumentation ist im GitHub-Repository verfügbar https://github.com/janssenmaja/AMA.git
