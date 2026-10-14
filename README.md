@@ -12,9 +12,9 @@ Für verschiedene Startwerte vergleicht das Programm unter anderem die Anzahl de
 ## 2. Voraussetzungen
 
 - **Empfohlen:** [Anaconda](https://www.anaconda.com/download) oder [Miniconda](https://docs.conda.io/en/latest/miniconda.html) (Conda)
-- **Alternativ:** Python ab Version 3.8 mit `pip`
 
-Benötigte externe Bibliotheken: NumPy und Matplotlib. Sie sind in `environment.yml` (für Conda) und in `requirements.txt` (für pip) festgelegt. Alle übrigen Module sind eigene Python-Dateien im Projektordner.
+
+Benötigte externe Bibliotheken: NumPy und Matplotlib. Sie sind in `environment.yml` (für Conda)  festgelegt. Alle übrigen Module sind eigene Python-Dateien im Projektordner.
 
 Das Projekt wurde mit Python 3.9 und 3.10 getestet.
 
