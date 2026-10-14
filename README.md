@@ -26,9 +26,8 @@ Miniconda stellt Conda zur Verfügung, mit dem eine separate Python-Umgebung fü
 
 https://www.anaconda.com/download/success?reg=skipped
 
-[Anaconda](https://www.anaconda.com/download) oder [Miniconda](https://docs.conda.io/en/latest/miniconda.html) 
 
-Laden Sie den grafischen Installer (Graphical Installer) für Windows 64-Bit herunter und führen Sie die Installation mit den empfohlenen Standardeinstellungen durch.
+Laden Sie den grafischen Installer (Graphical Installer) für Windows oder Mac 64-Bit herunter und führen Sie die Installation mit den empfohlenen Standardeinstellungen durch.
 
 Öffnen Sie anschließend über das Windows-Startmenü den Miniconda Prompt oder Anaconda Prompt.
 
@@ -44,7 +43,7 @@ Wenn eine Versionsnummer angezeigt wird, ist Conda verfügbar.
 
 Öffnen Sie den Miniconda bzw. Anaconda Prompt oder einen anderen Terminal und wechseln Sie in den Projektordner, also den Ordner, in dem sich diese README sowie `Main.py` und `environment.yml` befinden. Beispiel:
 
-windows:
+Windows:
 
 ```bash
 cd "C:\Pfad\zum\Projektordner"
