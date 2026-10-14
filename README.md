@@ -11,26 +11,53 @@ Für verschiedene Startwerte vergleicht das Programm unter anderem die Anzahl de
 
 ## 2. Voraussetzungen
 
-- **Empfohlen:** [Anaconda](https://www.anaconda.com/download) oder [Miniconda](https://docs.conda.io/en/latest/miniconda.html) (Conda)
+- Anaconda oder Miniconda
+- Python 3.10 (Das Projekt wurde mit Python 3.9 und Python 3.10 getestet)
+- Externe Bibliotheken: NumPy und Matplotlib.
 
-
-Benötigte externe Bibliotheken: NumPy und Matplotlib. Sie sind in `environment.yml` (für Conda)  festgelegt. Alle übrigen Module sind eigene Python-Dateien im Projektordner.
-
-Das Projekt wurde mit Python 3.9 und 3.10 getestet.
+Die benötigten Versionen und Bibliotheken sind in `environment.yml` festgelegt. Alle übrigen Module sind eigene Python-Dateien im Projektordner.
 
 ## 3. Installation
+### Schritt 1: Miniconda installieren | falls bereits installiert, diesen Schritt einfach überspringen
 
-### Schritt 1: Terminal im Projektordner öffnen
+Miniconda stellt Conda zur Verfügung, mit dem eine separate Python-Umgebung für das Projekt erstellt und verwaltet werden kann.
 
-Öffnen Sie ein Terminal und wechseln Sie in den Projektordner, also den Ordner, in dem sich diese README sowie `Main.py` und `environment.yml` befinden. Beispiel:
+Öffnen Sie die offizielle Installationsseite:
+
+[Anaconda](https://www.anaconda.com/download) oder [Miniconda](https://docs.conda.io/en/latest/miniconda.html) 
+
+Laden Sie den grafischen Installer (Graphical Installer) für Windows 64-Bit herunter und führen Sie die Installation mit den empfohlenen Standardeinstellungen durch.
+
+Öffnen Sie anschließend über das Windows-Startmenü den Miniconda Prompt oder Anaconda Prompt.
+
+Überprüfen Sie die Installation mit folgendem Befehl:
 
 ```bash
-cd Pfad/zum/Projektordner
+conda --version
+```
+Wenn eine Versionsnummer angezeigt wird, ist Conda verfügbar.
+
+
+### Schritt 2: Terminal im Projektordner öffnen
+
+Öffnen Sie den Miniconda bzw. Anaconda Prompt oder einen anderen Terminal und wechseln Sie in den Projektordner, also den Ordner, in dem sich diese README sowie `Main.py` und `environment.yml` befinden. Beispiel:
+
+windows:
+
+```bash
+cd "C:\Pfad\zum\Projektordner"
 ```
 
-Unter Windows verwenden Sie den **Anaconda Prompt** (wird mit Anaconda/Miniconda installiert).
+MacOS:
 
-### Schritt 2, Conda-Umgebung einrichten (empfohlen)
+```bash
+cd "/Pfad/zum/Projektordner"  
+```
+
+
+Ersetzen Sie den Beispielpfad durch den tatsächlichen Speicherort Ihres Projektordners. Führen Sie die folgenden Befehle in diesem Ordner aus.
+
+### Schritt 3: Conda-Umgebung einrichten
 
 ```bash
 conda env create -f environment.yml
@@ -38,7 +65,6 @@ conda activate ama-newton-broyden
 ```
 
 Der erste Befehl legt die Umgebung `ama-newton-broyden` mit Python 3.10, NumPy und Matplotlib an. Er wird nur einmal benötigt. Der zweite Befehl aktiviert die Umgebung. Danach steht `(ama-newton-broyden)` vor der Eingabezeile.
-
 
 
 ## 4. Ausführung des Programms
@@ -52,7 +78,6 @@ python Main.py
 ```
 
 (Falls `python` unter macOS/Linux nicht gefunden wird, verwenden Sie `python3 Main.py`.)
-
 
 
 ### Was passiert beim Ausführen?
@@ -86,7 +111,7 @@ Anschließend öffnet sich (bei Ausführung über die Kommandozeile) ein Grafikf
 - `broyden_solver.py` – Implementiert das Broyden-Verfahren.
 - `visualization.py` – Erstellt die Visualisierung der Bézier-Fläche, des Strahls und der ausgewählten Lösung.
 - `testcase2.png` – Beispielausgabe der Visualisierung für Test Case 2 (schräger Strahl): Bézier-Fläche mit Kontrollnetz, Strahl und berechnetem Schnittpunkt.
-
+- `environment.yml` – Definiert die Conda-Umgebung mit Python 3.10 sowie den benötigten Bibliotheken NumPy und Matplotlib.
 
 ## 6. Hinweise
 
